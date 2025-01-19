@@ -1,1 +1,185 @@
 hai saya alfin
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Virtual Bookshelf</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button>A</button>
+
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.module.js';
+
+        // Scene, Camera, Renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 400);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Circular bookshelf parameters
+        const shelfRadius = 10; // Radius of the circular bookshelf
+        const shelfHeight = 2.5;  // Height between shelves
+        const numShelves = 6;   // Number of shelves
+        const booksPerShelf = 40; // Number of books per shelf
+
+        // Load texture loader
+        const textureLoader = new THREE.TextureLoader();
+        // textureLoader.crossOrigin = null 
+
+        // Example book cover textures (replace with your own URLs)
+        const bookCovers = [
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwU9Rqb8T8d7i1ZM8xHF91J4M1znPkLs0pxQ&s",
+            "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg?A=1",
+            "https://pustaka.sman78library.or.id/uploaded_files/sampul_koleksi/original/Monograf/8227.jpg?a=1",
+            "https://pustaka.sman78library.or.id/uploaded_files/sampul_koleksi/original/Monograf/8230.jpg?a=1",
+            "https://pustaka.sman78library.or.id/uploaded_files/sampul_koleksi/original/Monograf/8233.jpg?a=1",
+            "https://pustaka.sman78library.or.id/uploaded_files/sampul_koleksi/original/Monograf/8234.jpg?a=1"
+        ];
+
+        // Add central pole (tiang)
+        const extraHeight = 3; // Tambahan tinggi tiang
+        const poleHeight = shelfHeight * numShelves + extraHeight; // Tinggi total tiang
+        const poleRadius = 10; // Radius of the pole
+        const poleGeometry = new THREE.CylinderGeometry(poleRadius, poleRadius, poleHeight, 32);
+        const poleMaterial = new THREE.MeshPhongMaterial({ color: 0xaaaaaa }); // Metallic gray
+        const pole = new THREE.Mesh(poleGeometry, poleMaterial);
+        pole.position.set(0, -1 / 2, 0); // Place at the center
+        scene.add(pole);
+
+
+        ////////////////
+        // Add central pole (tiang)
+
+
+
+        // Add shelves and books
+
+        var iterasi = 0;
+        for (let shelfIndex = 0; shelfIndex < numShelves; shelfIndex++) {
+            const yPosition = shelfIndex * shelfHeight - (numShelves / 2) * shelfHeight;
+
+            for (let bookIndex = 0; bookIndex < booksPerShelf; bookIndex++) {
+                // Calculate angle and position
+                const angle = (bookIndex / booksPerShelf) * Math.PI * 2;
+                const xPosition = shelfRadius * Math.cos(angle);
+                const zPosition = shelfRadius * Math.sin(angle);
+
+                // Variasi ukuran buku
+                const bookWidth = 1.2 + Math.random() * 0.3;
+                const bookHeight = 1.8 + Math.random() * 0.4;
+                const bookDepth = 0.3;
+                const bookGeometry = new THREE.BoxGeometry(bookWidth, bookHeight, bookDepth);
+
+                // Load book cover texture
+                const coverTexture = textureLoader.load(bookCovers[iterasi++ % bookCovers.length]);
+                const bookMaterial = new THREE.MeshBasicMaterial({ map: coverTexture });
+
+                const book = new THREE.Mesh(bookGeometry, bookMaterial);
+
+                // Adjust y position to align the bottom of the book
+                const adjustedYPosition = yPosition + bookHeight / 2;
+
+                // Position and rotate book
+                book.position.set(xPosition, adjustedYPosition, zPosition);
+
+                // Position and rotate book
+                // book.position.set(xPosition, yPosition, zPosition);
+                book.lookAt(0, yPosition, 0); // Make the book face the center
+                scene.add(book);
+            }
+        }
+
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0xcccccc);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+        pointLight.position.set(0, 20, 20);
+        scene.add(pointLight);
+
+        // Camera setup
+        camera.position.z = 48;
+        camera.position.y = -2.35;
+
+
+        // Variables to track mouse movement
+        let isMousePressed = false;
+        let lastMouseX = 0;
+
+
+        // // Raycaster and mouse position
+        // const raycaster = new THREE.Raycaster();
+        // const mouse = new THREE.Vector2();
+
+
+        // Mouse down event (start tracking movement)
+        window.addEventListener("mousedown", (event) => {
+
+            isMousePressed = true;
+            lastMouseX = event.clientX; // Track the initial mouse X position
+
+
+        });
+
+        // Mouse up event (stop tracking movement)
+        window.addEventListener("mouseup", () => {
+            isMousePressed = false;
+        });
+
+        // Mouse move event (detect left movement while clicked)
+        window.addEventListener("mousemove", (event) => {
+            if (isMousePressed) {
+                const deltaX = event.clientX - lastMouseX; // Difference in mouse X position
+                if (deltaX < 0) {
+                    scene.rotation.y -= 0.01; // Move the cube to the left
+                }
+
+                if (deltaX > 0) {
+                    scene.rotation.y += 0.01; // Move the cube to the left
+                }
+
+                lastMouseX = event.clientX; // Update the last mouse position
+            }
+        });
+
+
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            // scene.rotation.y += 0.001; // Slowly rotate the bookshelf
+
+            // camera.position.z -= -0.03;
+            // console.log(camera.position.z -= -0.03)
+
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle resizing
+        window.addEventListener("resize", () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+
+</html>
