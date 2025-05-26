@@ -1,223 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Virtual Bookshelf</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-
-        canvas {
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasa Koding Samarinda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-
- 
-
-    <script type="module">
-        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.module.js';
-
-        // Scene, Camera, Renderer
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 400);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        // Circular bookshelf parameters
-        const shelfRadius = 10; // Radius of the circular bookshelf
-        const shelfHeight = 2.5;  // Height between shelves
-        const numShelves = 6;   // Number of shelves
-        const booksPerShelf = 40; // Number of books per shelf
-
-        // Load texture loader
-        const textureLoader = new THREE.TextureLoader();
-        // textureLoader.crossOrigin = null 
-
-        // Example book cover textures (replace with your own URLs)
-        const bookCovers = [
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwU9Rqb8T8d7i1ZM8xHF91J4M1znPkLs0pxQ&s",
-            "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg?A=1",
-            "https://pustaka.sman78library.or.id/uploaded_files/sampul_koleksi/original/Monograf/8227.jpg?a=1",
-            "https://pustaka.sman78library.or.id/uploaded_files/sampul_koleksi/original/Monograf/8230.jpg?a=1",
-            "https://pustaka.sman78library.or.id/uploaded_files/sampul_koleksi/original/Monograf/8233.jpg?a=1",
-            "https://pustaka.sman78library.or.id/uploaded_files/sampul_koleksi/original/Monograf/8234.jpg?a=1"
-        ];
-
-        // Add central pole (tiang)
-        const extraHeight = 3; // Tambahan tinggi tiang
-        const poleHeight = shelfHeight * numShelves + extraHeight; // Tinggi total tiang
-        const poleRadius = 10; // Radius of the pole
-        const poleGeometry = new THREE.CylinderGeometry(poleRadius, poleRadius, poleHeight, 32);
-        const poleMaterial = new THREE.MeshPhongMaterial({ color: 0xaaaaaa }); // Metallic gray
-        const pole = new THREE.Mesh(poleGeometry, poleMaterial);
-        pole.position.set(0, -1 / 2, 0); // Place at the center
-        scene.add(pole);
+<body class="bg-gradient-to-b from-blue-100 to-white text-gray-800">
+  <!-- Hero Section -->
+  <section class="bg-blue-600 text-white text-center py-12 px-4 rounded-b-3xl">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-3">Jasa Koding Samarinda</h1>
+    <p class="text-lg sm:text-xl mb-5">Bikin Website, Aplikasi, atau Bantuin Tugas Coding? Kami Siap</p>
+    <div class="flex justify-center gap-4 text-sm sm:text-base mb-5">
+      <span>✅ Fast Response</span>
+      <span>🌿 Konsultasi Gratis</span>
+      <span>✨ Bergaransi</span>
+    </div>
+    <a href="https://bit.ly/jasakodingsamarinda" target="_blank"
+   class="inline-block bg-white text-blue-600 font-semibold px-6 py-2 rounded-xl hover:bg-blue-100 transition">
+  Konsultasi Sekarang
+</a>
 
 
-        ////////////////
-        // Add central pole (tiang)
+      
+  </section>
 
+  <!-- Bantuan Section -->
+  <section class="py-10 px-4 max-w-5xl mx-auto">
+    <h2 class="text-xl font-bold mb-2">Butuh Bantuan Koding?</h2>
+    <p class="mb-5">Bingung mulai ngoding dari mana? Tugas kuliah numpuk atau skripsi bikin pusing? Tenang! Kami bantuin kamu step-by-step 🔑</p>
 
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="flex items-start gap-3">
+        <div class="text-blue-600 text-xl">📈</div>
+        <div>
+          <p class="font-semibold">Pembuatan Website</p>
+          <p class="text-sm">(Frontend & Backend)</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <div class="text-blue-600 text-xl">💻</div>
+        <div>
+          <p class="font-semibold">Pembuatan Aplikasi Android</p>
+          <p class="text-sm">(APK Sederhana)</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <div class="text-blue-600 text-xl">📅</div>
+        <div>
+          <p class="font-semibold">Bantuin Tugas Coding</p>
+          <p class="text-sm">(Kuliah atau Pribadi)</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <div class="text-blue-600 text-xl">🔢</div>
+        <div>
+          <p class="font-semibold">Otomasi Data & Analisis</p>
+          <p class="text-sm">(Python / MATLAB)</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Add shelves and books
+  <!-- Kenapa Kami Section -->
+  <section class="bg-blue-50 py-10 px-4">
+    <div class="max-w-5xl mx-auto grid gap-8 sm:grid-cols-2">
+      <div>
+        <h2 class="text-xl font-bold mb-3">Kenapa Pilih Kami?</h2>
+        <ul class="space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600">⏱️</span> Fast response & ramah pemula
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600">💬</span> Konsultasi gratis sebelum mulai
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600">🔍</span> Proses jelas & transparan
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600">🔢</span> Hasil dikerjakan sesuai kebutuhan kamu
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold mb-3">Apa kata mereka?</h2>
+        <div class="bg-white rounded-xl shadow p-4 mb-3">
+          <p class="text-sm">"…Prosesnya cepat & komunikatif banget. Web saya jadi dalam 5 hari aja!"</p>
+        </div>
+        <div class="bg-white rounded-xl shadow p-4">
+          <p class="text-sm">"…Bener-bener ngerti kebutuhan mahasiswa, skripsi saya terbantu banget."</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        var iterasi = 0;
-        for (let shelfIndex = 0; shelfIndex < numShelves; shelfIndex++) {
-            const yPosition = shelfIndex * shelfHeight - (numShelves / 2) * shelfHeight;
-
-            for (let bookIndex = 0; bookIndex < booksPerShelf; bookIndex++) {
-                // Calculate angle and position
-                const angle = (bookIndex / booksPerShelf) * Math.PI * 2;
-                const xPosition = shelfRadius * Math.cos(angle);
-                const zPosition = shelfRadius * Math.sin(angle);
-
-                // Variasi ukuran buku
-                const bookWidth = 1.2 + Math.random() * 0.3;
-                const bookHeight = 1.8 + Math.random() * 0.4;
-                const bookDepth = 0.3;
-                const bookGeometry = new THREE.BoxGeometry(bookWidth, bookHeight, bookDepth);
-
-                // Load book cover texture
-                const coverTexture = textureLoader.load(bookCovers[iterasi++ % bookCovers.length]);
-                const bookMaterial = new THREE.MeshBasicMaterial({ map: coverTexture });
-
-                const book = new THREE.Mesh(bookGeometry, bookMaterial);
-
-                // Adjust y position to align the bottom of the book
-                const adjustedYPosition = yPosition + bookHeight / 2;
-
-                // Position and rotate book
-                book.position.set(xPosition, adjustedYPosition, zPosition);
-
-                // Position and rotate book
-                // book.position.set(xPosition, yPosition, zPosition);
-                book.lookAt(0, yPosition, 0); // Make the book face the center
-                scene.add(book);
-            }
-        }
-
-        // Add lighting
-        const ambientLight = new THREE.AmbientLight(0xcccccc);
-        scene.add(ambientLight);
-
-        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
-        pointLight.position.set(0, 20, 20);
-        scene.add(pointLight);
-
-        // Camera setup
-        camera.position.z = 48;
-        camera.position.y = -2.35;
-
-
-        // Variables to track mouse movement
-        let isMousePressed = false;
-        let lastMouseX = 0;
-
-
-        // // Raycaster and mouse position
-        // const raycaster = new THREE.Raycaster();
-        // const mouse = new THREE.Vector2();
-
-
-        // Mouse down event (start tracking movement)
-        window.addEventListener("mousedown", (event) => {
-
-            isMousePressed = true;
-            lastMouseX = event.clientX; // Track the initial mouse X position
-
-
-        });
-
-        // Mouse up event (stop tracking movement)
-        window.addEventListener("mouseup", () => {
-            isMousePressed = false;
-        });
-
-        // Mouse move event (detect left movement while clicked)
-        window.addEventListener("mousemove", (event) => {
-            if (isMousePressed) {
-                const deltaX = event.clientX - lastMouseX; // Difference in mouse X position
-                if (deltaX < 0) {
-                    scene.rotation.y -= 0.01; // Move the cube to the left
-                }
-
-                if (deltaX > 0) {
-                    scene.rotation.y += 0.01; // Move the cube to the left
-                }
-
-                lastMouseX = event.clientX; // Update the last mouse position
-            }
-        });
-
-
-        // Variables for touch tracking
-        let isDragging = false;
-        let lastX = 0;
-        let targetRotation = 0;
-        let rotationSpeed = 0.05; // Kecepatan rotasi agar smooth
-
-        // Mouse Events
-        window.addEventListener("mousedown", (event) => {
-            isDragging = true;
-            lastX = event.clientX;
-        });
-
-        window.addEventListener("mouseup", () => {
-            isDragging = false;
-        });
-
-        window.addEventListener("mousemove", (event) => {
-            if (isDragging) {
-                let deltaX = event.clientX - lastX;
-                targetRotation += deltaX * 0.002;
-                lastX = event.clientX;
-            }
-        });
-
-        // Touch Events (Mobile)
-        renderer.domElement.addEventListener("touchstart", (event) => {
-            if (event.touches.length === 1) {
-                isDragging = true;
-                lastX = event.touches[0].clientX;
-            }
-        });
-
-        renderer.domElement.addEventListener("touchend", () => {
-            isDragging = false;
-        });
-
-        renderer.domElement.addEventListener("touchmove", (event) => {
-            if (isDragging && event.touches.length === 1) {
-                let touchX = event.touches[0].clientX;
-                let deltaX = touchX - lastX;
-                targetRotation += deltaX * 0.005; // Faktor skala agar smooth di layar sentuh
-                lastX = touchX;
-            }
-        });
-
-        function animate() {
-            requestAnimationFrame(animate);
-            scene.rotation.y += (targetRotation - scene.rotation.y) * rotationSpeed; // Lerp untuk smoothing
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Handle resizing
-        window.addEventListener("resize", () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
+  <!-- Chat Section -->
+  <section class="py-10 px-4 text-center">
+    <h2 class="text-lg font-semibold mb-3">Siap dibantu?</h2>
+    <p class="mb-4">Hubungi kami sekarang juga via WhatsApp</p>
+    <a href="https://bit.ly/jasakodingsamarinda" target="_blank"
+   class="inline-block bg-blue-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-blue-700 transition">
+  Chat Sekarang
+</a>
+  </section>
 </body>
 
 </html>
