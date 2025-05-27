@@ -8,44 +8,7 @@
 <body>
   <button onclick="handleKonsultasi()">Konsultasi Sekarang</button>
 
-  <script>
-    // Konfigurasi Firebase kamu
-    const firebaseConfig = {
-    apiKey: "AIzaSyAIMFrxtURDKCnD73bl0Sf0qEPDzRhCCRM",
-    authDomain: "belajarv1-fe05c.firebaseapp.com",
-    databaseURL: "https://belajarv1-fe05c-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "belajarv1-fe05c",
-    storageBucket: "belajarv1-fe05c.firebasestorage.app",
-    messagingSenderId: "579134778567",
-    appId: "1:579134778567:web:7a790b7fd8b1ce746da2e2",
-    measurementId: "G-H72K72M0P0"
-  };
+  <script>(function(){var _0x5a29=["QUl6YVN5QUlNRnJ4dFVSREtDbkQ3M2JsMFNmMHFFUER6UmhDQ1JNA==","YmVsYWphcnYxLWZlMDVjLmZpcmViYXNlYXBwLmNvbQ==","aHR0cHM6Ly9iZWxhamFyVjEtZmUwNWMtZGVmYXVsdC1ydGRiLmFzaWEtc291dGhlYXN0MS5maXJlYmFzZWRhdGFiYXNlLmFwcA==","YmVsYWphcnYxLWZlMDVj","YmVsYWphcnYxLWZlMDVjLmZpcmViYXN0b3JhZ2UuYXBw","NTc5MTM0Nzc4NTY3","MTo1NzkxMzQ3Nzg1Njd3ZWI6N2E3OTBiN2ZkOGIxY2U3NDZkYTJlMg==","Ry1INzJLNzJNMFAw","Y2Fsb25fa29uc3VsdGFzaQ==","NjI4MTM0NTU1Njg3OA==","SGFsbyBhZG1pbiwgc2F5YSBpbmdpbiBrb25zdWx0YXNpLiBLb2RlIHNheWE6IA=="];function _0xdec(_0x4a81){return atob(_0x4a81);}var _0xconf={apiKey:_0xdec(_0x5a29[0]),authDomain:_0xdec(_0x5a29[1]),databaseURL:_0xdec(_0x5a29[2]),projectId:_0xdec(_0x5a29[3]),storageBucket:_0xdec(_0x5a29[4]),messagingSenderId:_0x5a29[5],appId:_0xdec(_0x5a29[6]),measurementId:_0xdec(_0x5a29[7])};firebase.initializeApp(_0xconf);var _0xdb=firebase.database();function _0xgenCode(){return Math.floor(100+Math.random()*900).toString();}function _0xhandle(){var _0xcode=_0xgenCode();var _0xtime=new Date().toISOString();var _0xref=_0xdec(_0x5a29[8])+'/'+_0xcode;var _0xno=_0xdec(_0x5a29[9]);var _0xmsg=encodeURIComponent(_0xdec(_0x5a29[10])+_0xcode);_0xdb.ref(_0xref).set({uuid:_0xcode,waktu:_0xtime}).then(function(){window.location.href=`https://wa.me/${_0xno}?text=${_0xmsg}&app_absent=1`}).catch(function(_0xe){alert("Gagal mengirim data: "+_0xe.message);});}window.handleKonsultasi=_0xhandle;})();</script>
 
-    // Inisialisasi Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    function generateKode3Digit() {
-  return Math.floor(100 + Math.random() * 900).toString();
-}
-
-    function handleKonsultasi() {
-      const uuid = generateKode3Digit();
-      const timestamp = new Date().toISOString();
-
-      // Simpan ke Firebase
-      db.ref('calon_konsultasi/' + uuid).set({
-        uuid: uuid,
-        waktu: timestamp
-      }).then(() => {
-        const nomor = "6281234567890"; // Ganti dengan nomormu
-        const pesan = encodeURIComponent(`Halo admin, saya ingin konsultasi. Kode saya: ${uuid}`);
-        const urlWa = `https://wa.me/${nomor}?text=${pesan}&app_absent=1`;
-        window.location.href = urlWa;
-      }).catch(err => {
-        alert("Gagal mengirim data: " + err.message);
-      });
-    }
-  </script>
 </body>
 </html>
