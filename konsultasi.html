@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Konsultasi</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
+  <button onclick="handleKonsultasi()">Konsultasi Sekarang</button>
+
+  <script>
+    // Konfigurasi Firebase kamu
+    const firebaseConfig = {
+    apiKey: "AIzaSyAIMFrxtURDKCnD73bl0Sf0qEPDzRhCCRM",
+    authDomain: "belajarv1-fe05c.firebaseapp.com",
+    databaseURL: "https://belajarv1-fe05c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "belajarv1-fe05c",
+    storageBucket: "belajarv1-fe05c.firebasestorage.app",
+    messagingSenderId: "579134778567",
+    appId: "1:579134778567:web:7a790b7fd8b1ce746da2e2",
+    measurementId: "G-H72K72M0P0"
+  };
+
+    // Inisialisasi Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function generateKode3Digit() {
+  return Math.floor(100 + Math.random() * 900).toString();
+}
+
+    function handleKonsultasi() {
+      const uuid = generateKode3Digit();
+      const timestamp = new Date().toISOString();
+
+      // Simpan ke Firebase
+      db.ref('calon_konsultasi/' + uuid).set({
+        uuid: uuid,
+        waktu: timestamp
+      }).then(() => {
+        const nomor = "6281234567890"; // Ganti dengan nomormu
+        const pesan = encodeURIComponent(`Halo admin, saya ingin konsultasi. Kode saya: ${uuid}`);
+        const urlWa = `https://wa.me/${nomor}?text=${pesan}`;
+        window.location.href = urlWa;
+      }).catch(err => {
+        alert("Gagal mengirim data: " + err.message);
+      });
+    }
+  </script>
+</body>
+</html>
