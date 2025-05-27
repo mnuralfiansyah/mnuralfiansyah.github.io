@@ -40,7 +40,7 @@
       }).then(() => {
         const nomor = "6281234567890"; // Ganti dengan nomormu
         const pesan = encodeURIComponent(`Halo admin, saya ingin konsultasi. Kode saya: ${uuid}`);
-        const urlWa = `https://wa.me/${nomor}?text=${pesan}`;
+        const urlWa = `https://wa.me/${nomor}?text=${pesan}&app_absent=1`;
         window.location.href = urlWa;
       }).catch(err => {
         alert("Gagal mengirim data: " + err.message);
